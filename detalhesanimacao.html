@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Animação</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Detalhes da Animação</h1>
+        <form onsubmit="saveTipoAnimacao(); return false;">
+            <label for="tipoAnimacao">Tipo de Animação:</label>
+            <select id="tipoAnimacao" name="tipoAnimacao" required>
+                <option value="Animação Tradicional">Animação Tradicional</option>
+                <!-- Adicione mais opções aqui conforme necessário -->
+            </select>
+            <button type="submit">Próximo</button>
+        </form>
+    </div>
+
+    <script>
+        function saveTipoAnimacao() {
+            const tipoAnimacao = document.getElementById('tipoAnimacao').value;
+            localStorage.setItem('tipoAnimacaoAnimacao', tipoAnimacao);
+            window.location.href = 'detalhesanimacao2.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data do Jogo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Escolha a Data do Jogo</h1>
+        <form onsubmit="saveDataJogo(); return false;">
+            <label for="dataJogo">Data (1920 - 2010):</label>
+            <input type="date" id="dataJogo" name="dataJogo" min="1920-01-01" max="2010-12-31" required>
+            <button type="submit">Próximo</button>
+        </form>
+    </div>
+
+    <script>
+        function saveDataJogo() {
+            const dataJogo = document.getElementById('dataJogo').value;
+            localStorage.setItem('dataJogo', dataJogo);
+            window.location.href = 'detalhesestudio.html';
+        }
+    </script>
+</body>
+</html>

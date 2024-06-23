@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise da Animação</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Análise da Animação</h1>
+        <p>Nome da Animação: <span id="nomeAnimacao"></span></p>
+        <p>Tipo de Animação: <span id="tipoAnimacao"></span></p>
+        <p>Descrição: <span id="descricao"></span></p>
+        <p>Roteiro: <span id="roteiro"></span></p>
+        <p>Data de Lançamento: <span id="dataLancamento"></span></p>
+        <p>Público: <span id="publico"></span></p>
+        <button onclick="verificarFimDoJogo()">Finalizar</button>
+    </div>
+
+    <script>
+        function verificarFimDoJogo() {
+            let dinheiro = parseInt(localStorage.getItem('dinheiro')) || 90000;
+            const publico = Math.floor(Math.random() * 100); // Exemplo simples de cálculo de público
+            const custoAnimacao = 10000; // Exemplo de custo fixo de animação
+
+            // Ajustar dinheiro
+            dinheiro -= custoAnimacao;
+            localStorage.setItem('dinheiro', dinheiro);
+
+            // Exibir informações
+            document.getElementById('nomeAnimacao').innerText = localStorage.getItem('nomeAnimacao');
+            document.getElementById('tipoAnimacao').innerText = localStorage.getItem('tipoAnimacaoAnimacao');
+            document.getElementById('descricao').innerText = localStorage.getItem('descricao');
+            document.getElementById('roteiro').innerText = localStorage.getItem('roteiro');
+            document.getElementById('dataLancamento').innerText = localStorage.getItem('dataLancamento');
+            document.getElementById('publico').innerText = publico;
+
+            if (dinheiro <= 0) {
+                window.location.href = 'gameover.html';
+            } else {
+                window.location.href = 'resumo.html';
+            }
+        }
+
+        window.onload = function() {
+            document.getElementById('nomeAnimacao').innerText = localStorage.getItem('nomeAnimacao');
+            document.getElementById('tipoAnimacao').innerText = localStorage.getItem('tipoAnimacaoAnimacao');
+            document.getElementById('descricao').innerText = localStorage.getItem('descricao');
+            document.getElementById('roteiro').innerText = localStorage.getItem('roteiro');
+            document.getElementById('dataLancamento').innerText = localStorage.getItem('dataLancamento');
+            const publico = Math.floor(Math.random() * 100); // Exemplo simples de cálculo de público
+            document.getElementById('publico').innerText = publico;
+        }
+    </script>
+</body>
+</html>

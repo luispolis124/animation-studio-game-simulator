@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Animação - Parte 2</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Descrição e Roteiro da Animação</h1>
+        <form onsubmit="saveDescricaoRoteiro(); return false;">
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" required></textarea>
+            <label for="roteiro">Roteiro:</label>
+            <textarea id="roteiro" name="roteiro" required></textarea>
+            <button type="submit">Próximo</button>
+        </form>
+    </div>
+
+    <script>
+        function saveDescricaoRoteiro() {
+            const descricao = document.getElementById('descricao').value;
+            const roteiro = document.getElementById('roteiro').value;
+            localStorage.setItem('descricao', descricao);
+            localStorage.setItem('roteiro', roteiro);
+            window.location.href = 'datadelancamento.html';
+        }
+    </script>
+</body>
+</html>

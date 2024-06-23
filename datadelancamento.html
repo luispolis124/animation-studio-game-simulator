@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data de Lançamento</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Data de Lançamento</h1>
+        <form onsubmit="saveDataLancamento(); return false;">
+            <label for="dataLancamento">Data de Lançamento:</label>
+            <input type="date" id="dataLancamento" name="dataLancamento" required>
+            <button type="submit">Próximo</button>
+        </form>
+    </div>
+
+    <script>
+        function saveDataLancamento() {
+            const dataLancamento = document.getElementById('dataLancamento').value;
+            localStorage.setItem('dataLancamento', dataLancamento);
+            window.location.href = 'analise.html';
+        }
+    </script>
+</body>
+</html>

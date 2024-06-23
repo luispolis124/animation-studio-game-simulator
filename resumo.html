@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo do Jogo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Resumo do Jogo</h1>
+        <p>Data Atual: <span id="dataAtual"></span></p>
+        <p>Relógio: <span id="relogio"></span></p>
+        <p>Nome do Estúdio: <span id="nomeEstudio"></span></p>
+        <p>Tipo de Animação: <span id="tipoAnimacao"></span></p>
+        <p>Dinheiro: <span id="dinheiro"></span></p>
+        <button onclick="criarAnimacao()">Criar Animação</button>
+        <button onclick="verMinhasAnimacoes()">Minhas Animações</button>
+    </div>
+
+    <script>
+        let dinheiro = parseInt(localStorage.getItem('dinheiro')) || 90000;
+        if (isNaN(dinheiro) || dinheiro < 90000) {
+            dinheiro = 90000;
+        }
+        let dataAtual = new Date(localStorage.getItem('dataJogo') || '1920-01-01');
+        let horas = 0;
+        let minutos = 0;
+
+        function atualizarRelogio() {
+            minutos += 1;
+            if (minutos >= 60) {
+                minutos = 0;
+                horas += 1;
+                if (horas >= 24) {
+                    horas = 0;
+                    dataAtual.setDate(dataAtual.getDate() + 1);
+                    localStorage.setItem('dataJogo', dataAtual.toISOString().split('T')[0]);
+                    verificarLancamentoAnimacoes();
+                }
+            }
+
+            document.getElementById('relogio').innerText = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;
+            document.getElementById('dataAtual').innerText = dataAtual.toISOString().split('T')[0];
+        }
+
+        function criarAnimacao() {
+            localStorage.setItem('dinheiro', dinheiro);
+            window.location.href = 'nomedaanimacao.html';
+        }
+
+        function verMinhasAnimacoes() {
+            window.location.href = 'minhasanimacoes.html';
+        }
+
+        function verificarLancamentoAnimacoes() {
+            const animacoes = JSON.parse(localStorage.getItem('animacoes')) || [];
+            const dataAtualStr = dataAtual.toISOString().split('T')[0];
+            animacoes.forEach(animacao => {
+                if (animacao.dataLancamento === dataAtualStr && !animacao.lancada) {
+                    const publico = Math.floor(Math.random() * 100);
+                    animacao.publico = publico;
+                    animacao.lancada = true;
+                    dinheiro += publico * 1000; // Exemplo: cada ponto de público aumenta R$1000
+                    localStorage.setItem('dinheiro', dinheiro);
+                }
+            });
+            localStorage.setItem('animacoes', JSON.stringify(animacoes));
+        }
+
+        window.onload = function() {
+            document.getElementById('nomeEstudio').innerText = localStorage.getItem('nomeEstudio');
+            document.getElementById('tipoAnimacao').innerText = localStorage.getItem('tipoAnimacao');
+            document.getElementById('dinheiro').innerText = `R$ ${dinheiro.toLocaleString()}`;
+            document.getElementById('dataAtual').innerText = dataAtual.toISOString().split('T')[0];
+            document.getElementById('relogio').innerText = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;
+
+            setInterval(atualizarRelogio, 6000); // Atualiza o relógio a cada 6 segundos
+        }
+    </script>
+</body>
+</html>
